@@ -2,6 +2,8 @@
 
 ## Overview
 ```
+
+
   What is Transfer Learning?
 
   What are Pre-Trained Models?
@@ -13,8 +15,12 @@
   Implementation of Transfer Learning
 
   Choosing pre-trained models
-  
+
+
 ```
+
+
+**Authors : Bezawit Abebaw and Biruk Abere**
 
 
 **Transfer learning** is a powerful technique in machine learning where we apply knowledge gained from solving one problem to a different but related problem. Imagine it like this: rather than starting from scratch every time, we use the insights and lessons learned from a model that was trained on a large and comprehensive dataset, and apply them to our specific task. For instance, we could take a model that has been trained to recognize a myriad of objects in millions of images, such as those from the ImageNet dataset, and use that knowledge to boost our own image-related project. Similarly, in the world of text and language, a model that has been fed vast amounts of text to understand and interpret language can be repurposed to help classify different text samples in our own work. This approach is like standing on the shoulders of giants – we leverage the hard work and learning a model has already done, and use it to give our project a head start. The key idea is to find a model that excels in a certain area and adapt its strengths to our unique challenges, thereby enhancing the performance and efficiency of our own model.
