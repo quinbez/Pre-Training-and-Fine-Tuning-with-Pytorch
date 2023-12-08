@@ -1,4 +1,4 @@
-Authors: Bezawit Abebaw and Biruk Abere
+*Authors: Bezawit Abebaw and Biruk Abere*
 
 **Transfer learning** is a powerful technique in machine learning where we apply knowledge gained from solving one problem to a different but related problem. Imagine it like this: rather than starting from scratch every time, we use the insights and lessons learned from a model that was trained on a large and comprehensive dataset, and apply them to our specific task. 
 
