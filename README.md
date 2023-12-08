@@ -1,43 +1,15 @@
-# Pre-training-and-Fine-Tuning-with-PyTorch
 
-## Overview
-```
-
-  What is Transfer Learning?
-
-  What are Pre-Trained Models?
-
-  What is Fine-Tuning?
-
-  Why do we use Transfer Learning?
-
-  Implementation of Transfer Learning
-
-  Choosing pre-trained models
-
-```
-
-*Authors : Bezawit Abebaw and Biruk Abere*
-
-
-**Transfer learning** is a powerful technique in machine learning where we apply knowledge gained from solving one problem to a different but related problem. Imagine it like this: rather than starting from scratch every time, we use the insights and lessons learned from a model that was trained on a large and comprehensive dataset, and apply them to our specific task. 
-
-For instance, we could take a model that has been trained to recognize a myriad of objects in millions of images, such as those from the ImageNet dataset, and use that knowledge to boost our own image-related project. Similarly, in the world of text and language, a model that has been fed vast amounts of text to understand and interpret language can be repurposed to help classify different text samples in our own work. This approach is like standing on the shoulders of giants – we leverage the hard work and learning a model has already done, and use it to give our project a head start. 
-
-The key idea is to find a model that excels in a certain area and adapt its strengths to our unique challenges, thereby enhancing the performance and efficiency of our own model.
+**Transfer learning** is a powerful technique in machine learning where we apply knowledge gained from solving one problem to a different but related problem. Imagine it like this: rather than starting from scratch every time, we use the insights and lessons learned from a model that was trained on a large and comprehensive dataset, and apply them to our specific task. For instance, we could take a model that has been trained to recognize a myriad of objects in millions of images, such as those from the ImageNet dataset, and use that knowledge to boost our own image-related project. Similarly, in the world of text and language, a model that has been fed vast amounts of text to understand and interpret language can be repurposed to help classify different text samples in our own work. This approach is like standing on the shoulders of giants – we leverage the hard work and learning a model has already done, and use it to give our project a head start. The key idea is to find a model that excels in a certain area and adapt its strengths to our unique challenges, thereby enhancing the performance and efficiency of our own model.
 
 ![ALT](./images/image1.png)
 
 **Pre-Trained Models** are a direct outcome of transfer learning. These models are trained on large benchmark datasets and tasks, and then made available for others to use. These models have already learned a large set of features, which can be a very effective starting point for training a model on a new task.
-
 For instance, in computer vision, models like VGG, ResNet, and Inception are trained on the ImageNet dataset, which contains millions of labelled images in thousands of categories. In natural language processing, models like BERT, GPT, and T5 are trained on extensive text corpora and can be used for tasks like language translation, question-answering, and text generation.
-
 Using pre-trained models can significantly reduce the time, computational cost, and the amount of data required to train an effective model. They provide a major advantage in that they reduce the need for a large amount of computational resources and expertise to train a model from scratch.
 
 **Fine-Tuning** is a process that tweaks a pre-trained model to adapt it more closely to the specific characteristics of the task at hand. It involves continuing the training of the model on a new task, using a smaller dataset specific to that task.
 
 During fine-tuning, the pre-trained model is adjusted in such a way that the model's weights are 'fine-tuned' to the new task. This usually involves a few steps: initially, the model's existing weights are frozen, and only the last few layers are trained on the new data. Once these layers have been sufficiently trained, the earlier layers can be unfrozen and the entire model can be trained (to a smaller extent) on the new data.
-
 Fine-tuning allows the model to transfer the knowledge it has learned from the previous task (like recognizing shapes or understanding language structure) to the new task. This results in a much more efficient training process than training a model from scratch, as the model already has a good understanding of the general features and only needs to adjust its understanding to the specifics of the new task.
 
 ![ALT](./images/image4.png)
@@ -53,7 +25,6 @@ Let's see one Motivating Example :- Let's say we are building a cat detector to 
 ![ALT](./images/image3.png)
 
 And by using someone else's pre-trained weights we might be able to get pretty good performance even on a small dataset. A lot of deep learning frameworks support this mode operation and depending on the framework it might have things like trainable parameters = 0 to set that for those earlier layers in order to say, don't train those earlier layers,  or sometimes we have a parameter freeze = 1, so these are our parameters that let's us whether or not to train the weights associated with a particular layer.
-
 One rule of thumb is if we have a larger label data set so maybe we just have a ton of pictures of Tigger, Misty as well as pictures of neither, one thing we could do is then freeze fewer layers. Maybe we freeze just the top layers and then train the later layers. Although if the output layer has different classes then we need to have our own output unit, which is Tigger, Misty or neither. There are a couple of ways to do this. 
 
 * We could take the last few layers and just use that as initialization and do gradient descent from there
@@ -252,13 +223,12 @@ Estimated Total Size (MB): 838.53
 ----------------------------------------------------------------
 
 ```
+
+The model summary describes the architecture of a VGG16 neural network model. The input size to the model is specified as 3 x 32 x 32, which suggests that the images that the model processes should have a depth of 3, with a spatial resolution of 32x32 pixels.The output from the model is [64, 1000], which indicates that for each instance in the batch, the network outputs a vector of 1000 elements. This typically corresponds to the number of classes the model is predicting.Regarding parameters, the model has a total of 138,357,544 parameters, all of which are trainable as indicated by the same number being listed under trainable parameters. There are no non-trainable parameters in this network, as by default the parameters `requires_grad is True`.
+
 ## Freezing the model
 
-The process of transfer learning usually goes: freeze some base layers of a pre-trained model and then adjust the output layers (also called the classifier layers ) to suit our needs.We can customize the outputs of a pre-trained model by changing the output layers to suit our problem. 
-
-For example, The original `torchvision.models.efficientnet_b0()` comes with output `features of 1000` because there are 1000 classes in ImageNet, the dataset it was trained on. However, for our problem, we might not need that much output, so let's say our problem needs `out_features = 3`. So let's freeze all of the layers parameters in the feature section of our model. Note that to freeze layers means to keep them how they are during training. 
-
-For instance, if our model has pre-trained layers, to freeze them would be like saying, "don't change any of the patterns in these layers during training. Leave them how they are." We can freeze all of the layers parameters in the features section by setting the attribute `requires_grad = False`. For parameters with `requires_grad = False` PyTorch doesn't track gradient updates and in turn, these parameters won't be changed by our optimizer during training.
+The process of transfer learning usually goes: freeze some base layers of a pre-trained model and then adjust the output layers (also called the classifier layers ) to suit our needs.We can customize the outputs of a pre-trained model by changing the output layers to suit our problem. For example, The original `torchvision.models.efficientnet_b0()` comes with output `features of 1000` because there are 1000 classes in ImageNet, the dataset it was trained on. However, for our problem, we might not need that much output, so let's say our problem needs `out_features = 3`. So let's freeze all of the layers parameters in the feature section of our model. Note that to freeze layers means to keep them how they are during training. For example, if our model has pre-trained layers, to freeze them would be like saying, "don't change any of the patterns in these layers during training. Leave them how they are." We can freeze all of the layers parameters in the features section by setting the attribute `requires_grad = False`. For parameters with `requires_grad = False` PyTorch doesn't track gradient updates and in turn, these parameters won't be changed by our optimizer during training.
 
 
 ```python
@@ -325,6 +295,9 @@ Params size (MB): 527.79
 Estimated Total Size (MB): 838.53
 ----------------------------------------------------------------
 ```
+
+The input size to the model remains the same as before, specified as 3 x 32 x 32, which suggests RGB images of 32x32 pixels. The output size, as indicated by the final layer shape [64, 1000], implies that for each image in a batch of 64, the model will output a vector of 1000 elements, where each element corresponds to a class score. The total parameters of the model are listed as 138,357,544. However, after the freezing process, all the parameters are listed as non-trainable, which is indicated by the number of trainable parameters being 0 and the non-trainable parameters being 138,357,544. This suggests that the weights of the network have been frozen and will not be updated during further training.
+
 
 ## Adjusting the output layer
 
@@ -412,43 +385,6 @@ summary(model = model_vgg , input_size = (3 , 32 , 32) , batch_size = 64 , devic
 ```
 Output:
 
-
-## Training the weights of the last few layers 
-
-```python
-print(model_vgg.classifier[3])
-```
-`Linear(in_features=4096, out_features=4096, bias=True)`
-
-```python
-for params in model_vgg.classifier[3].parameters():
-  params.requires_grad = True
-```
-
-```python
-print(model_vgg.classifier[6])
-```
-
-```
-Sequential(
-  (0): Linear(in_features=4096, out_features=3, bias=True)
-)
-```
-## Recreate the classifier layer
-
-```python
-import torch
-out_features = 3
-model_vgg.classifier[6] = torch.nn.Sequential(
-    torch.nn.Linear(in_features = 4096 , out_features = out_features , bias = True)
-).to(torch.device("cuda"))
-```
-## Summarizing after the recreated classifier layer
-```python
-from torchsummary import summary
-summary(model = model_vgg , input_size = (3 , 32 , 32) , batch_size = 64 , device = "cuda")
-```
-
 ```
 ----------------------------------------------------------------
         Layer (type)               Output Shape         Param #
@@ -502,8 +438,16 @@ Forward/backward pass size (MB): 309.50
 Params size (MB): 512.21
 Estimated Total Size (MB): 822.46
 ----------------------------------------------------------------
+
 ```
+The model has been altered by adding a new classifier on top, which is a common technique when adapting pre-trained models for new tasks. The output layer of the model, which is the last linear layer (Linear-39), shows an output shape of [64, 3]. This implies that for each image in the input batch of 64, the model will produce a vector with 3 elements, likely corresponding to the number of new classes it has been adapted to predict.
+
+The total number of parameters in the model is 134,272,835. Out of these, 12,291 are trainable parameters, which means these can be updated during the training process. The vast majority of parameters, 134,260,544, are non-trainable parameters. This indicates that these parameters have been frozen and will remain unchanged during training, a technique that helps in transferring the learned features of the pre-existing VGG16 model to a new task without the need for extensive retraining.
+
+
 ## Training the weights of the last few layers 
+
+By keeping the initial layers unchanged, which have already learned general features from a larger dataset, and retraining only the final layers, the network can apply its broad knowledge to the nuances of the new data. This allows the model to maintain its learned patterns while adjusting its output to the requirements of the new problem, such as recognizing a different set of categories or working with a distinct type of data.
 
 ```python
 print(model_vgg.classifier[3:])
@@ -584,8 +528,13 @@ Params size (MB): 512.21
 Estimated Total Size (MB): 822.46
 ----------------------------------------------------------------
 ```
+The neural network model consists of 134,272,835 parameters in total. Of these, 16,793,603 parameters have been made adjustable by enabling training on the final layers, signifying recent modifications for task-specific optimization. The rest, amounting to 117,479,232 parameters, remain non-trainable, signifying that they are kept unchanged from the model's initial comprehensive training.
+
 
 ## Retrain the entire layer
+
+All layers of a pre-existing neural network model are updated during training. Initially, the model is loaded with weights obtained from training on a large dataset. These pre-trained weights serve as the starting point, or initialization, providing a knowledge base that the model can build upon. The model then undergoes further training with new data, allowing every layer's weights to be fine-tuned, optimizing the model's performance for a specific task or dataset. This approach is beneficial when you have sufficient data and computational resources to refine the entire network.
+
 
 ```python
 for params in model_vgg.parameters():
@@ -651,6 +600,8 @@ Params size (MB): 512.21
 Estimated Total Size (MB): 822.46
 ----------------------------------------------------------------
 ```
+The model has a total of 134,272,835 parameters. All of these parameters are listed as trainable, which means that during the retraining process, the weights of every layer in the model are being updated. This differs from typical transfer learning where only the last few layers are retrained and the rest are frozen (non-trainable) to preserve the knowledge they have captured. There are no non-trainable parameters, indicating a full model fine-tuning has been performed.
+
 
 ## Sample Image Classification using transfer learning
 ```python
