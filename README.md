@@ -3,10 +3,15 @@
 ## Overview
 
  What is Transfer Learning?
+
  What are Pre-Trained Models?
+
  What is Fine-Tuning?
+
  Why do we use Transfer Learning?
+
  Implementation of Transfer Learning
+ 
  Choosing pre-trained models
 
 
